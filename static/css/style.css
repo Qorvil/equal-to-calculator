@@ -1,0 +1,375 @@
+:root {
+    font-family: Arial, sans-serif;
+    color: white;
+    background: #080014;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(circle at top left, #6b16a8, transparent 35%),
+        radial-gradient(circle at bottom right, #073f91, transparent 35%),
+        #080014;
+    overflow-x: hidden;
+}
+
+.app-layout {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    gap: 30px;
+    transition: gap 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.calculator {
+    width: min(680px, 92%);
+    padding: 36px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 24px;
+    background: rgba(12, 8, 35, 0.85);
+    box-shadow: 0 0 50px rgba(166, 75, 255, 0.3);
+    text-align: center;
+    position: relative;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-layout.focus-active .calculator {
+    transform: translateX(-15px);
+}
+
+.calculator-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    gap: 12px;
+}
+
+.focus-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 97, 216, 0.4);
+    border-radius: 20px;
+    background: rgba(255, 97, 216, 0.12);
+    color: #ff61d8;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.focus-btn:hover {
+    background: rgba(255, 97, 216, 0.25);
+    box-shadow: 0 0 15px rgba(255, 97, 216, 0.4);
+    transform: translateY(-1px);
+}
+
+.focus-btn.active {
+    background: linear-gradient(135deg, #ff35c8, #604cff);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(255, 53, 200, 0.5);
+}
+
+.eyebrow {
+    color: #ff61d8;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 8px;
+    font-size: clamp(2rem, 7vw, 4rem);
+    background: linear-gradient(90deg, #ff61d8, #6ee7ff);
+    color: transparent;
+    background-clip: text;
+}
+
+.description {
+    color: #bbb4d6;
+}
+
+form {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0;
+}
+
+input {
+    min-width: 0;
+    flex: 1;
+    padding: 16px;
+    border: 1px solid #7547b5;
+    border-radius: 12px;
+    outline: none;
+    background: #17102d;
+    color: white;
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    padding: 16px 20px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff35c8, #604cff);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 53, 200, 0.4);
+}
+
+.panel,
+.result {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    text-align: left;
+}
+
+.step {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #d9d1f1;
+    animation: appear 0.35s ease-out;
+}
+
+.result {
+    text-align: center;
+}
+
+.result strong {
+    display: block;
+    margin: 10px;
+    color: #6ee7ff;
+    font-size: 3rem;
+}
+
+#confidence {
+    color: #ff61d8;
+}
+
+.status {
+    min-height: 24px;
+    color: #ffd166;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================
+   SUBWAY SURFERS FOCUS PANEL
+   ============================================================ */
+
+.focus-panel {
+    width: 320px;
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+    overflow: hidden;
+    border-radius: 24px;
+    background: rgba(14, 9, 36, 0.95);
+    border: 1px solid rgba(255, 97, 216, 0.35);
+    box-shadow: 0 0 40px rgba(255, 97, 216, 0.25);
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    transition:
+        max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.35s ease,
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        margin 0.45s ease;
+    margin-left: -30px;
+}
+
+.focus-panel.active {
+    max-width: 340px;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+    margin-left: 0;
+}
+
+.focus-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.focus-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6ee7ff;
+    letter-spacing: 0.05em;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.4; }
+}
+
+.focus-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.focus-icon-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.focus-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    max-height: 72vh;
+    background: #030008;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#focus-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-fallback {
+    position: absolute;
+    inset: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(18, 12, 40, 0.95);
+    border-radius: 16px;
+    border: 1px dashed rgba(255, 97, 216, 0.5);
+    padding: 20px;
+    color: #ffd166;
+}
+
+.video-fallback p {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+}
+
+.video-fallback small {
+    color: #bbb4d6;
+    line-height: 1.4;
+}
+
+.video-fallback code {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #6ee7ff;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 950px) {
+    .app-layout {
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .app-layout.focus-active .calculator {
+        transform: none;
+    }
+
+    .focus-panel {
+        width: 100%;
+        max-width: 0;
+        margin-left: 0;
+        transform: translateY(20px);
+    }
+
+    .focus-panel.active {
+        max-width: 340px;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    form {
+        flex-direction: column;
+    }
+
+    .calculator {
+        padding: 24px 20px;
+    }
+
+    .calculator-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .focus-btn {
+        align-self: flex-end;
+    }
+}

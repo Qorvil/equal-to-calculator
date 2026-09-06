@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equal To Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-layout" id="app-layout">
+        <main class="calculator">
+            <div class="calculator-topbar">
+                <p class="eyebrow">A Calculator that is equal to a human</p>
+                <button id="focus-toggle" type="button" class="focus-btn" title="Toggle Subway Surfers Focus Mode">
+                    <span class="focus-btn-icon"></span> Focus Mode
+                </button>
+            </div>
+
+            <h1>Equal To Calculator</h1>
+
+            <p class="description">
+                Enter an equation and receive a relatable solution
+            </p>
+
+            <form id="calculator-form">
+                <input
+                    id="expression"
+                    name="expression"
+                    type="text"
+                    placeholder="Try 5 + 6"
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit">Think like a human</button>
+            </form>
+
+            <section id="status" class="status"></section>
+
+            <section id="steps-container" class="panel hidden">
+                <h2>Calculation Process</h2>
+                <div id="steps"></div>
+            </section>
+
+            <section id="result-container" class="result hidden">
+                <p>Final answer</p>
+                <strong id="answer">---</strong>
+                <span id="confidence"></span>
+            </section>
+        </main>
+
+        <aside id="focus-panel" class="focus-panel" aria-hidden="true">
+            <div class="focus-header">
+                <div class="focus-title">
+                    <span class="pulse-dot"></span>
+                    <span>Subway Surfers</span>
+                </div>
+                <div class="focus-controls">
+                    <button id="sound-toggle" type="button" class="focus-icon-btn" title="Toggle Mute">🔇</button>
+                    <button id="focus-close" type="button" class="focus-icon-btn" title="Close Focus Mode">✕</button>
+                </div>
+            </div>
+            <div class="video-wrapper">
+                <video id="focus-video" loop playsinline muted preload="auto">
+                    <source src="{{ url_for('static', filename='ss.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div id="video-fallback" class="video-fallback hidden">
+                    <p>⚠️ <strong>ss.mp4</strong> not found in <code>static/</code></p>
+                    <small>Place your Subway Surfers <code>ss.mp4</code> video inside <code>static/</code> to play it here.</small>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
