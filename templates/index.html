@@ -84,6 +84,39 @@
         </aside>
     </div>
 
+    <!-- Pls Donate Modal -->
+    <div id="donate-modal" class="modal-overlay hidden" aria-hidden="true">
+        <div class="modal-card">
+            <button id="donate-close-x" type="button" class="modal-close-btn" title="Close">✕</button>
+            <div class="donate-badge">Emotional Support Fund</div>
+            <h2>Pls Donate</h2>
+            <p class="donate-desc">
+                Calculating like a human takes an immense emotional toll.
+                Please consider donating to keep our calculator motivated.
+            </p>
+            <div class="qr-container">
+                <a href="https://youtu.be/QDia3e12czc" target="_blank" rel="noopener noreferrer" class="qr-link" title="Click or Scan to Donate">
+                    <img
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fyoutu.be%2FQDia3e12czc&margin=4"
+                        alt="Donate QR Code"
+                        class="qr-image"
+                        width="180"
+                        height="180"
+                    >
+                </a>
+                <span class="qr-hint">Scan with phone or click the QR code</span>
+            </div>
+            <div class="donate-actions">
+                <a href="https://youtu.be/QDia3e12czc" target="_blank" rel="noopener noreferrer" class="donate-btn">
+                    Donate Now
+                </a>
+                <button id="donate-dismiss-btn" type="button" class="dismiss-btn">
+                    I am broke
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

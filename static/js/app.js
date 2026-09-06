@@ -27,6 +27,11 @@ const focusPanel = document.getElementById("focus-panel");
 const focusVideo = document.getElementById("focus-video");
 const videoFallback = document.getElementById("video-fallback");
 
+// Donate Modal Elements
+const donateModal = document.getElementById("donate-modal");
+const donateCloseX = document.getElementById("donate-close-x");
+const donateDismissBtn = document.getElementById("donate-dismiss-btn");
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -142,6 +147,11 @@ function verifyCaptcha() {
         if (captchaContainer) {
             captchaContainer.classList.add("hidden");
         }
+
+        // Pop up the "Pls Donate" window shortly after seeing the answer
+        setTimeout(() => {
+            showDonateModal();
+        }, 5000);
     } else {
         showCaptchaError("Incorrect code! Please try again.");
         if (captchaContainer) {
@@ -152,6 +162,34 @@ function verifyCaptcha() {
         }
         generateCaptcha();
     }
+}
+
+function showDonateModal() {
+    if (!donateModal) return;
+    donateModal.classList.remove("hidden");
+    donateModal.setAttribute("aria-hidden", "false");
+}
+
+function closeDonateModal() {
+    if (!donateModal) return;
+    donateModal.classList.add("hidden");
+    donateModal.setAttribute("aria-hidden", "true");
+}
+
+if (donateCloseX) {
+    donateCloseX.addEventListener("click", closeDonateModal);
+}
+
+if (donateDismissBtn) {
+    donateDismissBtn.addEventListener("click", closeDonateModal);
+}
+
+if (donateModal) {
+    donateModal.addEventListener("click", (event) => {
+        if (event.target === donateModal) {
+            closeDonateModal();
+        }
+    });
 }
 
 if (captchaRefresh) {
@@ -214,6 +252,7 @@ form.addEventListener("submit", async (event) => {
     }
 
     // Reset previous calculation.
+    closeDonateModal();
     status.textContent = "Thinking like a human...";
     stepsContainer.classList.add("hidden");
     resultContainer.classList.add("hidden");
