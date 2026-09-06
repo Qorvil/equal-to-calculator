@@ -9,13 +9,22 @@ const resultContainer = document.getElementById("result-container");
 const answerElement = document.getElementById("answer");
 const confidenceElement = document.getElementById("confidence");
 
+// Captcha Elements
+const captchaContainer = document.getElementById("captcha-container");
+const resultContent = document.getElementById("result-content");
+const captchaCanvas = document.getElementById("captcha-canvas");
+const captchaRefresh = document.getElementById("captcha-refresh");
+const captchaInput = document.getElementById("captcha-input");
+const captchaVerifyBtn = document.getElementById("captcha-verify-btn");
+const captchaError = document.getElementById("captcha-error");
+
+let currentCaptcha = "";
+
 // Focus Mode Elements
 const appLayout = document.getElementById("app-layout");
 const focusToggle = document.getElementById("focus-toggle");
 const focusPanel = document.getElementById("focus-panel");
-const focusClose = document.getElementById("focus-close");
 const focusVideo = document.getElementById("focus-video");
-const soundToggle = document.getElementById("sound-toggle");
 const videoFallback = document.getElementById("video-fallback");
 
 
@@ -28,6 +37,138 @@ function showError(message) {
     status.textContent = message;
     stepsContainer.classList.add("hidden");
     resultContainer.classList.add("hidden");
+}
+
+
+// ============================================================
+// CAPTCHA VERIFICATION SYSTEM
+// ============================================================
+
+function generateCaptcha() {
+    if (!captchaCanvas) return;
+
+    const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    let text = "";
+    for (let i = 0; i < 5; i++) {
+        text += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    currentCaptcha = text;
+
+    const ctx = captchaCanvas.getContext("2d");
+    ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height);
+
+    // Dark canvas background
+    ctx.fillStyle = "#0c0823";
+    ctx.fillRect(0, 0, captchaCanvas.width, captchaCanvas.height);
+
+    // Interference curves
+    for (let i = 0; i < 4; i++) {
+        ctx.strokeStyle = `rgba(${Math.floor(Math.random() * 200 + 55)}, ${Math.floor(Math.random() * 200 + 55)}, 255, 0.4)`;
+        ctx.lineWidth = Math.random() * 2 + 1;
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * captchaCanvas.width, Math.random() * captchaCanvas.height);
+        ctx.bezierCurveTo(
+            Math.random() * captchaCanvas.width, Math.random() * captchaCanvas.height,
+            Math.random() * captchaCanvas.width, Math.random() * captchaCanvas.height,
+            Math.random() * captchaCanvas.width, Math.random() * captchaCanvas.height
+        );
+        ctx.stroke();
+    }
+
+    // Interference noise dots
+    for (let i = 0; i < 35; i++) {
+        ctx.fillStyle = `rgba(255, 97, 216, ${Math.random() * 0.5})`;
+        ctx.beginPath();
+        ctx.arc(
+            Math.random() * captchaCanvas.width,
+            Math.random() * captchaCanvas.height,
+            Math.random() * 2 + 0.5,
+            0,
+            Math.PI * 2
+        );
+        ctx.fill();
+    }
+
+    // Draw characters with distinct colors & rotation
+    const colors = ["#6ee7ff", "#ff61d8", "#ffd166", "#ffffff", "#a64bff"];
+    const charSpacing = (captchaCanvas.width - 30) / text.length;
+
+    for (let i = 0; i < text.length; i++) {
+        ctx.save();
+        const x = 18 + i * charSpacing;
+        const y = 33 + (Math.random() * 6 - 3);
+        const angle = (Math.random() * 32 - 16) * Math.PI / 180;
+
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.font = "bold 24px 'Courier New', monospace";
+        ctx.fillText(text[i], 0, 0);
+        ctx.restore();
+    }
+
+    if (captchaInput) {
+        captchaInput.value = "";
+    }
+    if (captchaError) {
+        captchaError.classList.add("hidden");
+        captchaError.textContent = "";
+    }
+}
+
+function showCaptchaError(message) {
+    if (!captchaError) return;
+    captchaError.textContent = message;
+    captchaError.classList.remove("hidden");
+}
+
+function verifyCaptcha() {
+    if (!captchaInput) return;
+
+    const userInput = captchaInput.value.trim().toUpperCase();
+
+    if (!userInput) {
+        showCaptchaError("Please enter the code above.");
+        return;
+    }
+
+    if (userInput === currentCaptcha) {
+        // Human verified: reveal the blurred answer & confidence!
+        if (resultContent) {
+            resultContent.classList.remove("blurred");
+            resultContent.classList.add("unblurred");
+        }
+        if (captchaContainer) {
+            captchaContainer.classList.add("hidden");
+        }
+    } else {
+        showCaptchaError("Incorrect code! Please try again.");
+        if (captchaContainer) {
+            captchaContainer.classList.add("captcha-shake");
+            setTimeout(() => {
+                captchaContainer.classList.remove("captcha-shake");
+            }, 400);
+        }
+        generateCaptcha();
+    }
+}
+
+if (captchaRefresh) {
+    captchaRefresh.addEventListener("click", generateCaptcha);
+}
+
+if (captchaVerifyBtn) {
+    captchaVerifyBtn.addEventListener("click", verifyCaptcha);
+}
+
+if (captchaInput) {
+    captchaInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            verifyCaptcha();
+        }
+    });
 }
 
 
@@ -77,6 +218,15 @@ form.addEventListener("submit", async (event) => {
     stepsContainer.classList.add("hidden");
     resultContainer.classList.add("hidden");
     stepsElement.innerHTML = "";
+
+    // Reset blur state & show captcha container for the next answer
+    if (resultContent) {
+        resultContent.classList.remove("unblurred");
+        resultContent.classList.add("blurred");
+    }
+    if (captchaContainer) {
+        captchaContainer.classList.remove("hidden");
+    }
 
     try {
         const response = await fetch("/calculate", {
@@ -130,6 +280,16 @@ form.addEventListener("submit", async (event) => {
             confidenceElement.textContent =
                 `Probability of correctness: ${data.confidence}%`;
 
+            // Ensure result is blurred and generate fresh captcha challenge
+            if (resultContent) {
+                resultContent.classList.remove("unblurred");
+                resultContent.classList.add("blurred");
+            }
+            if (captchaContainer) {
+                captchaContainer.classList.remove("hidden");
+            }
+            generateCaptcha();
+
             resultContainer.classList.remove("hidden");
         }
 
@@ -156,20 +316,12 @@ function openFocusMode() {
 
     if (focusToggle) {
         focusToggle.classList.add("active");
-        focusToggle.innerHTML = '<span class="focus-btn-icon"></span> Exit Focus';
+        focusToggle.textContent = "Exit Focus";
     }
 
     if (focusVideo) {
         focusVideo.currentTime = 0;
-        const playPromise = focusVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // If browser blocks unmuted play, ensure muted and retry
-                focusVideo.muted = true;
-                if (soundToggle) soundToggle.textContent = "";
-                focusVideo.play().catch(() => {});
-            });
-        }
+        focusVideo.play().catch(() => {});
     }
 }
 
@@ -182,7 +334,7 @@ function closeFocusMode() {
 
     if (focusToggle) {
         focusToggle.classList.remove("active");
-        focusToggle.innerHTML = '<span class="focus-btn-icon"></span> Focus Mode';
+        focusToggle.textContent = "Focus Mode";
     }
 
     if (focusVideo) {
@@ -197,18 +349,6 @@ if (focusToggle) {
         } else {
             openFocusMode();
         }
-    });
-}
-
-if (focusClose) {
-    focusClose.addEventListener("click", closeFocusMode);
-}
-
-if (soundToggle && focusVideo) {
-    soundToggle.addEventListener("click", () => {
-        focusVideo.muted = !focusVideo.muted;
-        soundToggle.textContent = focusVideo.muted ? "" : "";
-        soundToggle.title = focusVideo.muted ? "Unmute" : "Mute";
     });
 }
 

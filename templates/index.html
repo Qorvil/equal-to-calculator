@@ -11,9 +11,7 @@
         <main class="calculator">
             <div class="calculator-topbar">
                 <p class="eyebrow">A Calculator that is equal to a human</p>
-                <button id="focus-toggle" type="button" class="focus-btn" title="Toggle Subway Surfers Focus Mode">
-                    <span class="focus-btn-icon"></span> Focus Mode
-                </button>
+                <button id="focus-toggle" type="button" class="focus-btn" title="Toggle Focus Mode">Focus Mode</button>
             </div>
 
             <h1>Equal To Calculator</h1>
@@ -43,10 +41,27 @@
             </section>
 
             <section id="result-container" class="result hidden">
+            <div id="captcha-container" class="captcha-box">
+                <div class="captcha-badge">Security Check</div>
+                <h3>Human Verification</h3>
+                <p class="captcha-desc">Prove you are human to reveal the calculation result</p>
+                <div class="captcha-preview">
+                    <canvas id="captcha-canvas" width="180" height="50"></canvas>
+                    <button type="button" id="captcha-refresh" class="captcha-refresh-btn" title="Refresh Captcha">↻</button>
+                </div>
+                <div class="captcha-form-row">
+                    <input type="text" id="captcha-input" placeholder="Enter code" autocomplete="off" maxlength="6">
+                    <button type="button" id="captcha-verify-btn">Verify</button>
+                </div>
+                <div id="captcha-error" class="captcha-error hidden"></div>
+            </div>
+
+            <div id="result-content" class="result-content blurred">
                 <p>Final answer</p>
                 <strong id="answer">---</strong>
                 <span id="confidence"></span>
-            </section>
+            </div>
+        </section>
         </main>
 
         <aside id="focus-panel" class="focus-panel" aria-hidden="true">
@@ -54,10 +69,6 @@
                 <div class="focus-title">
                     <span class="pulse-dot"></span>
                     <span>Subway Surfers</span>
-                </div>
-                <div class="focus-controls">
-                    <button id="sound-toggle" type="button" class="focus-icon-btn" title="Toggle Mute"></button>
-                    <button id="focus-close" type="button" class="focus-icon-btn" title="Close Focus Mode">✕</button>
                 </div>
             </div>
             <div class="video-wrapper">
