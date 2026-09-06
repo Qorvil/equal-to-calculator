@@ -2,7 +2,7 @@
 
 
 
-# [Project Name] 🎯
+# Equal To Calculator
 
 
 ## Basic Details
