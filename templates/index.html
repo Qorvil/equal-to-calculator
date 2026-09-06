@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <!-- Top-left Equal Symbol -->
+    <div class="screen-equal-symbol" aria-hidden="true">=</div>
+
     <div class="app-layout" id="app-layout">
         <main class="calculator">
             <div class="calculator-topbar">
@@ -30,7 +33,7 @@
                     required
                 >
 
-                <button type="submit">Think!</button>
+                <button type="submit">Think like a human</button>
             </form>
 
             <section id="status" class="status"></section>
@@ -62,7 +65,7 @@
                 <span id="confidence"></span>
             </div>
         </section>
-        </main>
+    </main>
 
         <aside id="focus-panel" class="focus-panel" aria-hidden="true">
             <div class="focus-header">
@@ -116,6 +119,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Middle-bottom Made With Love -->
+    <footer class="screen-footer">
+        <small class="made-with">made with ❤️ by team sudo</small>
+    </footer>
 
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>

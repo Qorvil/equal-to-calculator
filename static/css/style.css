@@ -337,6 +337,55 @@ button[type="submit"]:hover {
 }
 
 /* ============================================================
+   TOP-LEFT EQUAL SYMBOL & BOTTOM-MIDDLE BRANDING
+   ============================================================ */
+
+.screen-equal-symbol {
+    position: fixed;
+    top: 26px;
+    left: 36px;
+    font-size: clamp(3.2rem, 7vw, 5.2rem);
+    font-weight: 900;
+    line-height: 0.8;
+    font-family: Arial, sans-serif;
+    color: #0c0823;
+    -webkit-text-fill-color: #0c0823;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
+    filter: drop-shadow(0 0 25px rgba(166, 75, 255, 0.35));
+    user-select: none;
+    letter-spacing: -0.05em;
+    z-index: 95;
+    pointer-events: none;
+    transition: transform 0.35s ease;
+}
+
+.screen-footer {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 95;
+    text-align: center;
+    pointer-events: none;
+    width: max-content;
+}
+
+.screen-footer .made-with {
+    font-size: 0.8rem;
+    color: #a39bc2;
+    letter-spacing: 0.08em;
+    user-select: none;
+    background: rgba(14, 9, 36, 0.78);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    display: inline-block;
+}
+
+/* ============================================================
    SUBWAY SURFERS FOCUS PANEL
    ============================================================ */
 
@@ -503,6 +552,21 @@ button[type="submit"]:hover {
 
     .focus-btn {
         align-self: flex-end;
+    }
+
+    .screen-equal-symbol {
+        top: 12px;
+        left: 16px;
+        font-size: 2.5rem;
+    }
+
+    .screen-footer {
+        bottom: 8px;
+    }
+
+    .screen-footer .made-with {
+        font-size: 0.72rem;
+        padding: 4px 10px;
     }
 }
 
