@@ -38,15 +38,15 @@ Flask and SymPy privately calculate equations, while a custom engine generates c
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1] <img width="1600" height="762" alt="image" src="https://github.com/user-attachments/assets/96ef189a-7748-4f33-a6e1-80130fc05ad3" />
+<img width="1600" height="762" alt="image" src="https://github.com/user-attachments/assets/96ef189a-7748-4f33-a6e1-80130fc05ad3" />
 
 Main page which gets user input.
 
-![Screenshot2]<img width="1600" height="767" alt="image" src="https://github.com/user-attachments/assets/6c2b3180-6365-4739-b7de-96a9599937ac" />
+<img width="1600" height="767" alt="image" src="https://github.com/user-attachments/assets/6c2b3180-6365-4739-b7de-96a9599937ac" />
 
 Captcha before showing output
 
-![Screenshot3]<img width="1600" height="764" alt="image" src="https://github.com/user-attachments/assets/50205a9c-4705-4998-9b46-0d2fc90526fb" />
+<img width="1600" height="764" alt="image" src="https://github.com/user-attachments/assets/50205a9c-4705-4998-9b46-0d2fc90526fb" />
 
 "Focus mode"
 
