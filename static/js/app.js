@@ -156,7 +156,7 @@ function openFocusMode() {
 
     if (focusToggle) {
         focusToggle.classList.add("active");
-        focusToggle.innerHTML = '<span class="focus-btn-icon">❌</span> Exit Focus';
+        focusToggle.innerHTML = '<span class="focus-btn-icon"></span> Exit Focus';
     }
 
     if (focusVideo) {
@@ -166,7 +166,7 @@ function openFocusMode() {
             playPromise.catch(() => {
                 // If browser blocks unmuted play, ensure muted and retry
                 focusVideo.muted = true;
-                if (soundToggle) soundToggle.textContent = "🔇";
+                if (soundToggle) soundToggle.textContent = "";
                 focusVideo.play().catch(() => {});
             });
         }
@@ -182,7 +182,7 @@ function closeFocusMode() {
 
     if (focusToggle) {
         focusToggle.classList.remove("active");
-        focusToggle.innerHTML = '<span class="focus-btn-icon">🎮</span> Focus Mode';
+        focusToggle.innerHTML = '<span class="focus-btn-icon"></span> Focus Mode';
     }
 
     if (focusVideo) {
@@ -207,7 +207,7 @@ if (focusClose) {
 if (soundToggle && focusVideo) {
     soundToggle.addEventListener("click", () => {
         focusVideo.muted = !focusVideo.muted;
-        soundToggle.textContent = focusVideo.muted ? "🔇" : "🔊";
+        soundToggle.textContent = focusVideo.muted ? "" : "";
         soundToggle.title = focusVideo.muted ? "Unmute" : "Mute";
     });
 }
