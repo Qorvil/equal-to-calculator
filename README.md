@@ -25,72 +25,37 @@ Our calculator, the Equal To Calculator, aims to reduce this inequality by being
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- [Languages used] - Python, HTML, JavaScript, CSS
+- [Frameworks used] - SymPy, Flask
+- [Libraries used] - SymPy, Flask, math, random, re
+- [Tools used] - ChatGPT, Antigravity
 
 ### Implementation
 For Software:
-# Installation
-[commands]
-
-# Run
-[commands]
+Flask and SymPy privately calculate equations, while a custom engine generates convoluted steps steering toward a believable wrong answer. The vanilla JavaScript frontend animates these steps, blurs the final result behind an interactive canvas CAPTCHA, provides a sticky Subway Surfers side panel, and triggers a humorous donation QR pop-up modal. 
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot1] <img width="1600" height="762" alt="image" src="https://github.com/user-attachments/assets/96ef189a-7748-4f33-a6e1-80130fc05ad3" />
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+Main page which gets user input.
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot2]<img width="1600" height="767" alt="image" src="https://github.com/user-attachments/assets/6c2b3180-6365-4739-b7de-96a9599937ac" />
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+Captcha before showing output
 
-For Hardware:
+![Screenshot3]<img width="1600" height="764" alt="image" src="https://github.com/user-attachments/assets/50205a9c-4705-4998-9b46-0d2fc90526fb" />
 
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
-
-### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+"Focus mode"
 
 # Additional Demos
-[Add any extra demo materials/links]
+https://equaltocalculator.vercel.app
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Rahuldev P: Programming, Building
+- Abhinav K Jayan: Building, Bug fixing, Programming
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
